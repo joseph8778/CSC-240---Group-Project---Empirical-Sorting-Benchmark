@@ -1,0 +1,16 @@
+# Compiled C++ files and executables
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dll
+*.dylib
+*.exe
+*.out
+sorting_benchmark
+
+
+.vscode/
+.DS_Store
+build/
