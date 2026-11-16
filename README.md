@@ -21,3 +21,6 @@ generated executable, run:
 ```sh
 make clean
 ```
+
+
+HelloWorld(Print)
