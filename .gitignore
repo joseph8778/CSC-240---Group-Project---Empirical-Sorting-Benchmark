@@ -10,6 +10,9 @@
 *.out
 sorting_benchmark
 
+# Specific Text & Proposal Files
+GroupLabPDF.txt
+GroupProposal.txt
 
 .vscode/
 .DS_Store
