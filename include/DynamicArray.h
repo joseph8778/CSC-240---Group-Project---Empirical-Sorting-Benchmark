@@ -3,9 +3,9 @@
 class DynamicArray
 {
 public:
-    // Preconditions: initialCapacity >= 0.
+    // Preconditions: initialCapacity >= 1.
     // Postconditions: the array is empty and can hold at least initialCapacity elements.
-    explicit DynamicArray(int initialCapacity = 0);
+    explicit DynamicArray(int initialCapacity = 1);
 
     // Postconditions: this array owns an independent copy of other.
     DynamicArray(const DynamicArray& other);
