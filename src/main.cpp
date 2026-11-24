@@ -1,5 +1,4 @@
 #include "DynamicArray.h"
-#include "DynamicArray.cpp"
 #include <iostream>
 #include <stdexcept>
 
