@@ -34,3 +34,40 @@ void DynamicArray::ensureCapacity(int requiredCapacity) {
         currentCapacity = newCapacity;
 
 }
+
+void DynamicArray::append(int value)
+{
+    ensureCapacity(currentSize + 1);
+    elements[currentSize] = value;
+    ++currentSize;
+}
+
+int DynamicArray::get(int index) const
+{
+    if (index < 0 || index >= currentSize)
+    {
+        throw std::out_of_range("DynamicArray index is out of range.");
+    }
+
+    return elements[index];
+}
+
+void DynamicArray::set(int index, int value)
+{
+    if (index < 0 || index >= currentSize)
+    {
+        throw std::out_of_range("DynamicArray index is out of range.");
+    }
+
+    elements[index] = value;
+}
+
+int DynamicArray::size() const noexcept
+{
+    return currentSize;
+}
+
+int DynamicArray::capacity() const noexcept
+{
+    return currentCapacity;
+}
