@@ -1,5 +1,10 @@
 #pragma once
 
+// OWNER: DynamicArray owns its backing buffer and releases it with delete[].
+// OBSERVERS: The public interface exposes no pointers or references into the buffer.
+// REMOVAL: During growth, the old buffer is freed after its values are copied.
+//          The destructor frees the current buffer.
+
 class DynamicArray
 {
 public:
