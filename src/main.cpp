@@ -32,6 +32,21 @@ int main()
             std::cerr << "Random dataset has an incorrect size.\n";
             return 1;
         }
+    
+        const DynamicArray nearlySortedData = DataSet::generateNearlySorted(size);
+        if (nearlySortedData.size() != size)
+        {
+            std::cerr << "nearlySorted dataset has an incorrect size.\n";
+            return 1;
+        }
+
+        const DynamicArray reversedData = DataSet::generateReverseSorted(size);
+        if (reversedData.size() != size)
+        {
+            std::cerr << "Reversed dataset has an incorrect size.\n";
+            return 1;
+        }
+
         std::cout << "Passed dataset checks for N = " << size << ".\n";
     }
 
