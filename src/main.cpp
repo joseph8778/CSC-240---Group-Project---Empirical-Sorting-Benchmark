@@ -1,6 +1,10 @@
 #include "DynamicArray.h"
+#include "DataSet.h"
 #include <iostream>
 #include <stdexcept>
+#include <vector>
+
+using namespace std;
 
 int main()
 {
@@ -19,7 +23,17 @@ int main()
         std::cout << "Rejected invalid capacity: " << error.what() << '\n';
     }
 
-
+    const int sizes[] = {1000, 10000, 100000};
+    for (int size : sizes)
+    {
+        const DynamicArray randomData = DataSet::generateRandom(size);
+        if (randomData.size() != size)
+        {
+            std::cerr << "Random dataset has an incorrect size.\n";
+            return 1;
+        }
+        std::cout << "Passed dataset checks for N = " << size << ".\n";
+    }
 
     return 0;
 }
