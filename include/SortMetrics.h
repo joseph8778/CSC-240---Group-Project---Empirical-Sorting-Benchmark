@@ -1,11 +1,16 @@
 #pragma once
 
+#include "DynamicArray.h"
 #include <chrono>
 
 // OWNER: SortMetrics owns its timing and counter state.
 class SortMetrics
 {
 public:
+    // Postconditions: data is sorted in ascending order. The counters and
+    // elapsed time describe this call.
+    void insertionSort(DynamicArray& data);
+    
     // Postconditions: both operation counters are zero.
     void resetCounters() noexcept;
 

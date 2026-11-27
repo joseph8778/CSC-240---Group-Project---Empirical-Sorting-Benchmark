@@ -41,3 +41,32 @@ double SortMetrics::elapsedMilliseconds() const
     const std::chrono::duration<double, std::milli> elapsedMs = stopTime - startTime;
     return elapsedMs.count();
 }
+
+void SortMetrics::insertionSort(DynamicArray& data)
+{
+    resetCounters();
+    startTimer();
+
+    for (int index = 1; index < data.size(); ++index)
+    {
+        int position = index;
+        const int value = data.get(index);
+
+        while (position > 0)
+        {
+            const int previous = data.get(position - 1);
+            recordComparison();
+            if (previous <= value)
+            {
+                break;
+            }
+
+            data.set(position, previous);
+            data.set(position - 1, value);
+            recordSwap();
+            --position;
+        }
+    }
+
+    stopTimer();
+}
