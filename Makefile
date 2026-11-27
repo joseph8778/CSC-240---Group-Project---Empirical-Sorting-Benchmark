@@ -1,8 +1,8 @@
 CXX ?= g++
 CXXFLAGS ?= -std=c++17 -Wall -Wextra -pedantic
 TARGET := sorting_benchmark
-SOURCES := src/DynamicArray.cpp src/DataSet.cpp src/SortMetrics.cpp src/main.cpp
-HEADERS := include/DynamicArray.h include/DataSet.h include/SortMetrics.h
+SOURCES := src/DynamicArray.cpp src/DataSet.cpp src/SortMetrics.cpp src/main.cpp src/HeapType.cpp
+HEADERS := include/DynamicArray.h include/DataSet.h include/SortMetrics.h include/HeapType.h
 
 .PHONY: all clean
 
