@@ -1,7 +1,10 @@
 #include "DynamicArray.h"
 #include "DataSet.h"
+#include "SortMetrics.h"
+#include <chrono>
 #include <iostream>
 #include <stdexcept>
+#include <thread>
 #include <vector>
 
 using namespace std;
@@ -34,6 +37,28 @@ int main()
         }
         std::cout << "Passed dataset checks for N = " << size << ".\n";
     }
+
+    SortMetrics metrics;
+    metrics.resetCounters();
+    metrics.recordComparison();
+    metrics.recordComparison();
+    metrics.recordSwap();
+
+    metrics.startTimer();
+    std::this_thread::sleep_for(std::chrono::milliseconds(10)); // Creates gap in time to measure
+    metrics.stopTimer();
+
+    const double elapsed = metrics.elapsedMilliseconds();
+    if (metrics.comparisonCount() != 2 || metrics.swapCount() != 1 || elapsed <= 0.0)
+    {
+        std::cerr << "SortMetrics test failed.\n";
+        return 1;
+    }
+
+    cout << "SortMetrics test passed.\n"
+              << "Comparisons: " << metrics.comparisonCount() << '\n'
+              << "Swaps: " << metrics.swapCount() << '\n'
+              << "Elapsed: " << elapsed << " ms\n";
 
     return 0;
 }
