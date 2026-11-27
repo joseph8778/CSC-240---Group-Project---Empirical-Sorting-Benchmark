@@ -2,6 +2,8 @@
 
 #include "DynamicArray.h"
 
+class SortMetrics;
+
 // OWNER: HeapType owns its backing DynamicArray.
 // OBSERVERS: No external pointers or references into the backing array are stored.
 class HeapType
@@ -10,11 +12,13 @@ public:
     HeapType() = default;
 
     // Postconditions: value is added to the max-heap.
-    void insert(int value);
+    // Heap comparisons and swaps are recorded in metrics.
+    void insert(int value, SortMetrics& metrics);
 
     // Preconditions: the heap is not empty.
     // Postconditions: removes and returns the largest value.
-    int extractMax();
+    // Heap comparisons and swaps are recorded in metrics.
+    int extractMax(SortMetrics& metrics);
 
     // Postconditions: returns the number of active heap elements.
     int size() const noexcept;
@@ -61,11 +65,15 @@ private:
         return rightChildIndex(index) < heapSize;
     }
 
-    // Preconditions: index is a valid active heap element.
-    // Postconditions: restores heap order toward the root.
-    void reheapUp(int index);
+    // Preconditions: index is a valid active heap element. Heap order may
+    // be violated only between that element and its parent.
+    // Postconditions: restores heap order toward the root and records
+    // key comparisons and swaps in metrics.
+    void reheapUp(int index, SortMetrics& metrics);
 
-    // Preconditions: index is a valid active heap element.
-    // Postconditions: restores heap order toward the leaves.
-    void reheapDown(int index);
+    // Preconditions: index is a valid active heap element and its child
+    // subtrees are already max-heaps.
+    // Postconditions: restores heap order toward the leaves and records
+    // key comparisons and swaps in metrics.
+    void reheapDown(int index, SortMetrics& metrics);
 };
