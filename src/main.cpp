@@ -9,6 +9,18 @@
 
 using namespace std;
 
+void runInsertionBenchmark(const char* distribution, int size, DynamicArray& data)
+{
+    SortMetrics metrics;
+    metrics.insertionSort(data);
+
+    std::cout << "Insertion | " << distribution
+              << " | N=" << size
+              << " | ms=" << metrics.elapsedMilliseconds()
+              << " | comparisons=" << metrics.comparisonCount()
+              << " | swaps=" << metrics.swapCount() << '\n\n';
+}
+
 int main()
 {
     DynamicArray arr1(1);
@@ -26,54 +38,46 @@ int main()
         std::cout << "Rejected invalid capacity: " << error.what() << '\n';
     }
 
+
+
+
+
+    // 3 DataSet size testing
     const int sizes[] = {1000, 10000, 100000};
     for (int size : sizes)
     {
-        const DynamicArray randomData = DataSet::generateRandom(size);
+        DynamicArray randomData = DataSet::generateRandom(size);
         if (randomData.size() != size)
         {
             std::cerr << "Random dataset has an incorrect size.\n";
             return 1;
         }
     
-        const DynamicArray nearlySortedData = DataSet::generateNearlySorted(size);
+        DynamicArray nearlySortedData = DataSet::generateNearlySorted(size);
         if (nearlySortedData.size() != size)
         {
             std::cerr << "nearlySorted dataset has an incorrect size.\n";
             return 1;
         }
 
-        const DynamicArray reversedData = DataSet::generateReverseSorted(size);
+        DynamicArray reversedData = DataSet::generateReverseSorted(size);
         if (reversedData.size() != size)
         {
             std::cerr << "Reversed dataset has an incorrect size.\n";
             return 1;
         }
 
-        std::cout << "Passed dataset checks for N = " << size << ".\n";
+        std::cout << "Passed dataset checks for N = " << size << endl << endl;
+
+        
+
+        runInsertionBenchmark("Random", size, randomData);
+        runInsertionBenchmark("Nearly-sorted", size, nearlySortedData);
+        runInsertionBenchmark("Reversed", size, reversedData);
     }
 
-    SortMetrics metrics;
-    metrics.resetCounters();
-    metrics.recordComparison();
-    metrics.recordComparison();
-    metrics.recordSwap();
+   
 
-    metrics.startTimer();
-    std::this_thread::sleep_for(std::chrono::milliseconds(10)); // Creates gap in time to measure
-    metrics.stopTimer();
-
-    const double elapsed = metrics.elapsedMilliseconds();
-    if (metrics.comparisonCount() != 2 || metrics.swapCount() != 1 || elapsed <= 0.0)
-    {
-        std::cerr << "SortMetrics test failed.\n";
-        return 1;
-    }
-
-    cout << "SortMetrics test passed.\n"
-              << "Comparisons: " << metrics.comparisonCount() << '\n'
-              << "Swaps: " << metrics.swapCount() << '\n'
-              << "Elapsed: " << elapsed << " ms\n";
 
     return 0;
 }
